@@ -15,6 +15,13 @@ client.on('ready', () => {
     console.log(`✅Logged in as ${client.user.tag}!`);
 });
 
+client.on('interactionCreate', async interaction => {
+    if(!interaction.isChatInputCommand()) return;
+    if(interaction.commandName === 'hey'){
+        await interaction.reply('Hey !');
+    }
+});
+
 client.on('messageCreate', (message) => {
     if (message.content.toLocaleLowerCase() === 'putain' || message.content.toLocaleLowerCase() === 'bite') {
         message.reply('Oh ! Surveilles ton language, '+message.author.displayName+" !");
@@ -25,4 +32,6 @@ client.on('messageCreate', (message) => {
         }
     })
 
+
+client.login(process.env.TOKEN);    
 
