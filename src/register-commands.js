@@ -60,6 +60,14 @@ const commands  = [
     {
         name: 'whois-that-pokemon',
         description: 'Sends a pokemon embed',
+        options: [
+            {
+                name: 'name',
+                description: 'Name of the pokemon',
+                type: ApplicationCommandOptionType.String,
+                required: true
+            }
+        ]
     }
 ];
 const rest = new REST({ version: '10' }).setToken(process.env.TOKEN);
