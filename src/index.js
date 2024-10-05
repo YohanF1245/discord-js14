@@ -20,6 +20,11 @@ client.on('interactionCreate', async interaction => {
     if(interaction.commandName === 'hey'){
         await interaction.reply('Hey !');
     }
+    if(interaction.commandName === 'add'){
+        const firstNumber = interaction.options.getNumber('first-number');
+        const secondNumber = interaction.options.getNumber('second-number');
+        await interaction.reply(`${firstNumber} + ${secondNumber} = ${firstNumber + secondNumber}`);
+    }
 });
 
 client.on('messageCreate', (message) => {
