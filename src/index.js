@@ -1,4 +1,4 @@
-const { Client, IntentsBitField} = require('discord.js');
+const { Client, IntentsBitField, EmbedBuilder} = require('discord.js');
 require('dotenv').config();
 
 const client = new Client({
@@ -24,6 +24,18 @@ client.on('interactionCreate', async interaction => {
         const firstNumber = interaction.options.getNumber('first-number');
         const secondNumber = interaction.options.getNumber('second-number');
         await interaction.reply(`${firstNumber} + ${secondNumber} = ${firstNumber + secondNumber}`);
+    }
+    if(interaction.commandName === 'embed'){
+        const embed = new EmbedBuilder()
+            .setTitle('Embed title')
+            .setColor('Random')
+            .setDescription('Embed description')
+            .addFields(
+                {name: 'Field 1', value: 'Field 1 value'},
+                {name: 'Field 2', value: 'Field 2 value'}
+            )
+            .setURL('https://discord.js.org/')
+        await interaction.reply({embeds: [embed]})
     }
 });
 
