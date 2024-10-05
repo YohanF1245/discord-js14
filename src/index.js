@@ -1,4 +1,4 @@
-const { Client, IntentsBitField, EmbedBuilder} = require('discord.js');
+const { Client, IntentsBitField, EmbedBuilder, messageLink} = require('discord.js');
 require('dotenv').config();
 
 const client = new Client({
@@ -36,6 +36,34 @@ client.on('interactionCreate', async interaction => {
             )
             .setURL('https://discord.js.org/')
         await interaction.reply({embeds: [embed]})
+    }
+    if(interaction.commandName === 'whois-that-pokemon'){
+        const name = interaction.options.getString('name');
+        const embed = new EmbedBuilder();
+        async function getPokemon(name){
+            const response = await fetch(`https://tyradex.vercel.app/api/v1/pokemon/${name}`);
+            const data = await response.json();
+            return data;
+        }
+        const pokemon = await getPokemon(name);
+        console.log(pokemon);
+        if(pokemon.status === 404){
+            embed.setTitle('Pokemon not found')
+        }else{
+            embed.setTitle(pokemon.pokedex_id + ' - ' + pokemon.name.fr)
+                .setDescription(pokemon.category)
+                .setImage(pokemon.sprites.regular)
+                .addFields(
+                    {name: "Statistiques :", value: ' '},
+                    {name: 'HP', value: ""+pokemon.stats.hp, inline: true},
+                    {name: 'Attaque', value: ""+pokemon.stats.atk, inline: true},
+                    {name: 'Défense', value: ""+pokemon.stats.def, inline: true},
+                    {name: 'Attaque Spéciale', value: ""+pokemon.stats.spe_atk, inline: true},
+                    {name: 'Défense Spéciale', value: ""+pokemon.stats.spe_def, inline: true},
+                    {name: 'Vitesse', value: ""+pokemon.stats.vit, inline: true},
+                )
+        }
+    interaction.reply({embeds: [embed]});
     }
 });
 
