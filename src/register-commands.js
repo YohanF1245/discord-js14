@@ -15,12 +15,40 @@ const commands  = [
                 name: 'first-number',
                 description: 'First number',
                 type: ApplicationCommandOptionType.Number,
+                choices: [
+                    {
+                        name: 'One',
+                        value: 1
+                    },
+                    {
+                        name: 'Two',
+                        value: 2
+                    },
+                    {
+                        name: 'Three',
+                        value: 3
+                    }
+                ],
                 required: true
             },
             {
                 name: 'second-number',
                 description: 'Second number',
                 type: ApplicationCommandOptionType.Number,
+                choices: [
+                    {
+                        name: 'One',
+                        value: 1
+                    },
+                    {
+                        name: 'Two',
+                        value: 2
+                    },
+                    {
+                        name: 'Three',
+                        value: 3
+                    }
+                ],
                 required: true
             }   
         ]
