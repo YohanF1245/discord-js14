@@ -16,6 +16,32 @@ client.on('ready', () => {
 });
 
 client.on('interactionCreate', async interaction => {
+    if(interaction.isButton()){
+       try{
+        await interaction.deferReply({ephemeral: true});
+        const role = interaction.guild.roles.cache.get(interaction.customId);
+        if (!role) {
+            interaction.editReply({
+                content: 'Role not found',
+                 ephemeral: true,
+                })
+                return;
+        }
+
+        const hasRole = interaction.member.roles.cache.has(role.id);
+        if (hasRole) {
+            await interaction.member.roles.remove(role.id);
+            await interaction.editReply('Removed role');
+            return;
+        }
+
+        await interaction.member.roles.add(role.id);
+        await interaction.editReply('Added role');
+       }catch(error){
+           console.error(error);
+       }
+        
+    }
     if(!interaction.isChatInputCommand()) return;
     if(interaction.commandName === 'hey'){
         await interaction.reply('Hey !');
@@ -98,9 +124,6 @@ client.on('interactionCreate', async interaction => {
         );
 
     interaction.reply({embeds: [embed]});
-    }
-    if(interaction.isButton()){
-        console.log(interaction.customId);
     }
 });
 
