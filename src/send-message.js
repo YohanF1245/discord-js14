@@ -11,7 +11,20 @@ const client = new Client({
     ]
 });
 
-
+const roles= [
+    {
+        id:'1292427994257817610',
+        label:'Green'
+    },
+    {
+        id:'1292427954726633496',
+        label:'Red'
+    },
+    {
+        id:'1292427841853456475',
+        label:'Blue'
+    }
+]
 
 client.on('ready', () => {
     console.log(`✅Logged in as ${client.user.tag}!`);
