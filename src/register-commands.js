@@ -68,6 +68,9 @@ const commands  = [
                 required: true
             }
         ]
+    },{
+        name: 'modal',
+        description: 'Sends a modal'
     }
 ];
 const rest = new REST({ version: '10' }).setToken(process.env.TOKEN);
